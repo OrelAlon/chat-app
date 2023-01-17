@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 
 import io from "socket.io-client";
+import axios from "axios";
+import useBeforeUnload from "../useBeforeUnload ";
 
-const LiveCodeblockCard = ({ codeblock, codeblockId }) => {
+const LiveCodeblockCardAdmin = ({ codeblock, codeblockId }) => {
   const [liveCode, setLiveCode] = useState(null);
   const [socket, setSocket] = useState(null);
 
@@ -33,15 +35,17 @@ const LiveCodeblockCard = ({ codeblock, codeblockId }) => {
     };
   }, [socket, codeblockId]);
 
-  const handleTextChange = (e) => {
-    const newText = e.target.value;
-    setLiveCode(newText);
-    socket.emit("send-changes", { codeblockId, newText });
-  };
+  useBeforeUnload(async () => {
+    try {
+      await axios.delete("/api/admin/");
+    } catch (error) {
+      console.error("Error deleting user", error);
+    }
+  });
 
   return (
     <div>
-      Student Page
+      Admin Page
       <h3>{codeblock.title}</h3>
       <pre>{codeblock.code}</pre>
       <form action='/form/submit' method='GET'>
@@ -50,7 +54,6 @@ const LiveCodeblockCard = ({ codeblock, codeblockId }) => {
           cols='60'
           name='text'
           value={liveCode || codeblock.code}
-          onChange={handleTextChange}
         ></textarea>
         <br />
         <input type='submit' value='submit' />
@@ -59,4 +62,4 @@ const LiveCodeblockCard = ({ codeblock, codeblockId }) => {
   );
 };
 
-export default LiveCodeblockCard;
+export default LiveCodeblockCardAdmin;

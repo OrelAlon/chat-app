@@ -19,6 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/codeblock", require("./codeblock/codeblock.routes"));
+app.use("/api/admin", require("./admin/admin.routes"));
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/build")));
@@ -36,7 +37,6 @@ const server = app.listen(port, () => {
   connect(process.env.MONGO_URL);
   console.log(`Server running on port ${port}`);
 });
-
 // connect socket
 const io = new Server(server, {
   cors: {
@@ -45,11 +45,17 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  socket.on("send-changes", (newText) => {
-    socket.broadcast.emit("receive-changes", newText);
+  socket.on("join-room", (codeblockId) => {
+    socket.join(codeblockId);
   });
 
-  console.log(`Number of connected clients: ${io.engine.clientsCount}`);
+  socket.on("send-changes", ({ codeblockId, newText }) => {
+    socket.to(codeblockId).emit("receive-changes", newText);
+  });
+
+  const count = io.engine.clientsCount;
+
+  console.log(`Number of connected clients: ${count}`);
 
   socket.on("disconnect", () => {
     console.log(`User disconnect: ${socket.id}`);

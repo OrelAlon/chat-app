@@ -2,7 +2,6 @@ const Codeblock = require("./codeblock.schema");
 
 // get one codeblock
 const getCodeblock = async (req, res) => {
-  console.log("here");
   const codeblockId = req.query.id;
   const codeblock = await Codeblock.findById(codeblockId);
 
@@ -10,7 +9,6 @@ const getCodeblock = async (req, res) => {
 };
 // get all codeblocks
 const getCodeblocks = async (req, res) => {
-  console.log("getCodeblocksgetCodeblocks");
   const codeblocks = await Codeblock.find();
   res.status(200).json(codeblocks);
 };
