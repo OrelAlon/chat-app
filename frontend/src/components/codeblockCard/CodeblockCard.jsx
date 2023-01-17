@@ -5,12 +5,10 @@ import socketIOClient from "socket.io-client";
 import "./codeblockCard.css";
 
 const CodeblockCard = ({ codeblock }) => {
-  const [socket, setSocket] = useState(null);
-
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/codeblock/${codeblock._id}`, { state: { codeblock } });
+    navigate(`/codeblock/${codeblock._id}`);
   };
 
   return (

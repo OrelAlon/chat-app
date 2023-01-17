@@ -32,10 +32,6 @@ if (process.env.NODE_ENV === "production") {
   app.get("/", (req, res) => res.send("Please set to production"));
 }
 
-// io.on("connection", (socket) => {
-//   console.log("a user connected");
-// });
-
 const server = app.listen(port, () => {
   connect(process.env.MONGO_URL);
   console.log(`Server running on port ${port}`);
@@ -50,7 +46,11 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log(`User Connected: ${socket.id}`);
+  socket.on("send-changes", (newText) => {
+    socket.broadcast.emit("receive-changes", newText);
+  });
+
+  console.log(`Number of connected clients: ${io.engine.clientsCount}`);
 
   socket.on("disconnect", () => {
     console.log(`User disconnect: ${socket.id}`);

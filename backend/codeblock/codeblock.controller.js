@@ -1,7 +1,16 @@
 const Codeblock = require("./codeblock.schema");
 
-// get all code
+// get one codeblock
+const getCodeblock = async (req, res) => {
+  console.log("here");
+  const codeblockId = req.query.id;
+  const codeblock = await Codeblock.findById(codeblockId);
+
+  res.status(200).json(codeblock);
+};
+// get all codeblocks
 const getCodeblocks = async (req, res) => {
+  console.log("getCodeblocksgetCodeblocks");
   const codeblocks = await Codeblock.find();
   res.status(200).json(codeblocks);
 };
@@ -23,6 +32,7 @@ const deleteCodeblock = async (req, res) => {
 };
 
 module.exports = {
+  getCodeblock,
   getCodeblocks,
   createCodeblock,
   deleteCodeblock,

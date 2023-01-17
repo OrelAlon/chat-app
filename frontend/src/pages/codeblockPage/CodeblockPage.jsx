@@ -1,13 +1,25 @@
+import io from "socket.io-client";
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-import socketIOClient from "socket.io-client";
+import LiveCodeblockCard from "../../components/liveCodeblockCard/LiveCodeblockCard";
+import axios from "axios";
 
 const CodeblockPage = () => {
-  const [liveCode, setLiveCode] = useState(null);
-  const [socket, setSocket] = useState(null);
+  const [codeblock, setCodeblock] = useState(null);
+  // const { codeblock } = useLocation().state;
+  const { id: codeblockId } = useParams();
 
-  const { codeblock } = useLocation().state;
+  useEffect(() => {
+    const fetchCodeblock = async () => {
+      const res = await axios.get(`/api/codeblock/?id=${codeblockId}`);
+      setCodeblock(res.data);
+    };
+    fetchCodeblock();
+  }, []);
+
+  //
+  //
 
   if (!codeblock) {
     return <div>Loading...</div>;
@@ -15,8 +27,8 @@ const CodeblockPage = () => {
 
   return (
     <div>
-      <h1>{codeblock.title}</h1>
-      <pre>{codeblock.code}</pre>
+      <h2>live coding:</h2>
+      <LiveCodeblockCard codeblock={codeblock} />
     </div>
   );
 };
