@@ -1,0 +1,6 @@
+.codeblocks-cards {
+  max-width: 1200px;
+  margin: 20px auto;
+  display: grid;
+  gap: 1rem;
+}

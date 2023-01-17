@@ -3,7 +3,6 @@ require("dotenv").config();
 const connect = require("./config/db");
 const cors = require("cors");
 const path = require("path");
-
 const port = process.env.PORT || 5000;
 
 const app = express();
@@ -31,7 +30,7 @@ if (process.env.NODE_ENV === "production") {
   app.get("/", (req, res) => res.send("Please set to production"));
 }
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   connect(process.env.MONGO_URL);
   console.log(`Server running on port ${port}`);
 });

@@ -1,6 +1,10 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import { useState, useEffect } from "react";
 
-import Lobby from "./pages/Lobby";
+import LobbyPage from "./pages/lobbyPage/LobbyPage";
+import CodeblockPage from "./pages/codeblockPage/CodeblockPage";
+
 import axios from "axios";
 
 import "./App.css";
@@ -12,18 +16,18 @@ function App() {
     const fetchData = async () => {
       const res = await axios.get(`/api/codeblock/`);
       setData(res.data);
-      console.log(data);
     };
     fetchData();
   }, []);
 
   return (
     <div className='App'>
-      <header className='App-header'>
-        <p></p>
-        {data && <Lobby data={data} />}
-        <a>Learn React</a>
-      </header>
+      <Router>
+        <Routes>
+          <Route path='/' element={<LobbyPage data={data} />} />
+          <Route path='/codeblock/:id' element={<CodeblockPage />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
