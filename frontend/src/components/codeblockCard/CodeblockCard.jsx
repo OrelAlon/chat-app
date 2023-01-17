@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
@@ -13,7 +12,6 @@ const CodeblockCard = ({ codeblock }) => {
     if (saveFirst.data.isFirst) {
       localStorage.setItem("admin", JSON.stringify(saveFirst.data.isFirst));
     }
-    console.log(saveFirst);
     navigate(`/codeblock/${codeblock._id}`);
   };
 
