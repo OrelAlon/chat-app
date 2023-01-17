@@ -1,4 +1,3 @@
-import io from "socket.io-client";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
@@ -11,9 +10,7 @@ const CodeblockPage = () => {
   const [isAdmin, setIsAdmin] = useState(
     JSON.parse(localStorage.getItem("admin")) || null
   );
-  console.log(isAdmin);
   const { id: codeblockId } = useParams();
-
   useEffect(() => {
     const fetchCodeblock = async () => {
       const res = await axios.get(`/api/codeblock/?id=${codeblockId}`);

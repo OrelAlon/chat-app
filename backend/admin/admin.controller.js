@@ -7,7 +7,6 @@ const getAdmin = async (req, res) => {
 
 const createAdmin = async (req, res) => {
   const { codeId } = req.body;
-  console.log(codeId);
   try {
     const firstUser = await AdminUser.findOne({ codeId: codeId });
     if (!firstUser) {
@@ -23,9 +22,9 @@ const createAdmin = async (req, res) => {
 };
 
 const deleteAdmin = async (req, res) => {
+  const { codeId } = req.query;
   try {
-    await AdminUser.remove();
-    console.log("delete user");
+    await AdminUser.deleteOne({ codeId: codeId });
 
     res.json({ message: "First user deleted" });
   } catch (err) {

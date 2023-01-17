@@ -29,7 +29,8 @@ const LiveCodeblockCard = ({ codeblock, codeblockId }) => {
 
     return () => {
       socket.off("receive-changes", handler);
-      socket.leave(codeblockId);
+      socket.emit("leave-room", codeblockId);
+      socket.disconnect();
     };
   }, [socket, codeblockId]);
 

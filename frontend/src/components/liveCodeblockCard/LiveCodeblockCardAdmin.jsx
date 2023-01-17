@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import io from "socket.io-client";
 import axios from "axios";
@@ -7,6 +8,8 @@ import useBeforeUnload from "../useBeforeUnload ";
 const LiveCodeblockCardAdmin = ({ codeblock, codeblockId }) => {
   const [liveCode, setLiveCode] = useState(null);
   const [socket, setSocket] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const s = io.connect("http://localhost:5000/");
@@ -31,33 +34,45 @@ const LiveCodeblockCardAdmin = ({ codeblock, codeblockId }) => {
 
     return () => {
       socket.off("receive-changes", handler);
-      socket.leave(codeblockId);
+      socket.emit("leave-room", codeblockId);
+      socket.disconnect();
     };
   }, [socket, codeblockId]);
 
   useBeforeUnload(async () => {
+    // const deleteBtn = async () => {
     try {
-      await axios.delete("/api/admin/");
+      localStorage.clear();
+      await axios.delete("/api/admin/", { params: { codeId: codeblockId } });
     } catch (error) {
       console.error("Error deleting user", error);
     }
   });
+  const goBackHandler = async () => {
+    try {
+      localStorage.clear();
+      await axios.delete("/api/admin/", { params: { codeId: codeblockId } });
+    } catch (error) {
+      console.error("Error deleting user", error);
+    }
+
+    navigate("/");
+  };
 
   return (
     <div>
       Admin Page
       <h3>{codeblock.title}</h3>
       <pre>{codeblock.code}</pre>
-      <form action='/form/submit' method='GET'>
-        <textarea
-          rows='15'
-          cols='60'
-          name='text'
-          value={liveCode || codeblock.code}
-        ></textarea>
-        <br />
-        <input type='submit' value='submit' />
-      </form>
+      <textarea
+        rows='15'
+        cols='60'
+        name='text'
+        value={liveCode || codeblock.code}
+        readOnly
+      ></textarea>
+      <br />
+      <button onClick={goBackHandler}>Go Back</button>
     </div>
   );
 };
