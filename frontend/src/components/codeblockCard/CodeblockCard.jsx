@@ -1,9 +1,12 @@
-import { useHistory } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import socketIOClient from "socket.io-client";
 
 import "./codeblockCard.css";
 
 const CodeblockCard = ({ codeblock }) => {
+  const [socket, setSocket] = useState(null);
+
   const navigate = useNavigate();
 
   const handleClick = () => {
