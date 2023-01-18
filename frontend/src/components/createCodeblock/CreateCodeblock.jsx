@@ -19,7 +19,9 @@ const CreateCodeblock = ({}) => {
     try {
       const createNewCode = await axios.post("/api/codeblock/", newCodeblock);
       window.location.reload(false);
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

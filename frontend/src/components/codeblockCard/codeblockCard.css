@@ -12,3 +12,12 @@
 .codeblock-card button {
   font-weight: bold;
 }
+.delete-codeblock {
+  position: relative;
+  right: 0;
+  cursor: pointer;
+}
+.delete-codeblock:hover {
+  color: red;
+  font-weight: bold;
+}

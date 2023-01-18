@@ -42,7 +42,7 @@ const createCodeblock = async (req, res) => {
 // delete code
 const deleteCodeblock = async (req, res) => {
   try {
-    const codeblock = await Codeblock.findByIdAndDelete(req.params.id);
+    await Codeblock.findByIdAndDelete(req.params.id);
 
     res.status(200).json({ message: `delete ${req.params.id}` });
   } catch (error) {
