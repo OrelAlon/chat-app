@@ -1,14 +1,17 @@
 ## online coding web application
 
-frontend
+#### frontend
 pages:
 1. Lobby page
 
 i. “Choose code block” headline
+
 ii. after enter name: 4 components of code blocks (component => name and code)
+
 iii. state: setBlockes: (array) the 4 code blocks data from the backend
 
 setMentor: (String) first user
+
 setStudent: (array) all user after the first one
 
 Code block page
@@ -20,9 +23,12 @@ components:
 Bonus
 i. setSolution: (Array) if the code is equal to the solution show 🤩
 
-backend
+#### backend
+
 server
+
 i. nodejs
+
 ii. mongoDB
 
 - codeblock router
