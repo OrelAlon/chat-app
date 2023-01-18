@@ -12,7 +12,7 @@ const LiveCodeblockCardStudent = ({ codeblock, codeblockId }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const s = io.connect("http://localhost:5000/");
+    const s = io.connect("https://chat-app-rqlq.onrender.com/");
     setSocket(s);
 
     s.emit("join-room", codeblockId); // joining the room by emitting an event
