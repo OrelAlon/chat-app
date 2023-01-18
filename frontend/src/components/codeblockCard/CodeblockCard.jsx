@@ -17,7 +17,7 @@ const CodeblockCard = ({ codeblock }) => {
 
   return (
     <div className='codeblock-card'>
-      {codeblock.title}
+      <p> {codeblock.title}</p>
       <button onClick={handleClick}>let's code</button>
     </div>
   );
