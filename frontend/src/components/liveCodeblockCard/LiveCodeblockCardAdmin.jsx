@@ -62,9 +62,9 @@ const LiveCodeblockCardAdmin = ({ codeblock, codeblockId }) => {
 
   return (
     <div>
-      Admin Page
-      <h3>{codeblock.title}</h3>
-      <pre>{codeblock.code}</pre>
+      <h3>Admin Page</h3>
+
+      <h4>{codeblock.title}</h4>
       <textarea
         rows='15'
         cols='60'

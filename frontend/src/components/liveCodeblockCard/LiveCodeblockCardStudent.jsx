@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import io from "socket.io-client";
 import axios from "axios";
 
-const LiveCodeblockCard = ({ codeblock, codeblockId }) => {
+const LiveCodeblockCardStudent = ({ codeblock, codeblockId }) => {
   const [liveCode, setLiveCode] = useState(null);
   const [socket, setSocket] = useState(null);
   const [isCorrect, setIsCorrect] = useState("");
@@ -60,9 +60,10 @@ const LiveCodeblockCard = ({ codeblock, codeblockId }) => {
 
   return (
     <div>
-      Student Page
-      <h3>{codeblock.title}</h3>
-      <pre>{codeblock.code}</pre>
+      <h3>Student Page</h3>
+
+      <h4>{codeblock.title}</h4>
+
       <form onSubmit={handleCheckCode}>
         <textarea
           rows='15'
@@ -79,4 +80,4 @@ const LiveCodeblockCard = ({ codeblock, codeblockId }) => {
   );
 };
 
-export default LiveCodeblockCard;
+export default LiveCodeblockCardStudent;
