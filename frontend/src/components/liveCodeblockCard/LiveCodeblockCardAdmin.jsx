@@ -41,6 +41,14 @@ const LiveCodeblockCardAdmin = ({ codeblock, codeblockId }) => {
     };
   }, [socket, codeblockId]);
 
+  useEffect(() => {
+    window.addEventListener("beforeunload", goBackHandler);
+
+    return () => {
+      window.removeEventListener("beforeunload", goBackHandler);
+    };
+  }, []);
+  console.log(window.removeEventListener);
   const goBackHandler = async () => {
     try {
       await axios.delete("/api/admin/", { params: { adminId: adminId } });
