@@ -14,6 +14,7 @@ const LiveCodeblockCardAdmin = ({ codeblock, codeblockId }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // connecting to the chat server with render
     const s = io.connect("https://chat-app-rqlq.onrender.com/");
     setSocket(s);
 
@@ -28,6 +29,7 @@ const LiveCodeblockCardAdmin = ({ codeblock, codeblockId }) => {
     if (socket == null) return;
 
     socket.emit(codeblockId);
+    // setting up a listener for the "receive-changes" event
 
     const handler = (newText) => {
       setLiveCode(newText);
@@ -35,6 +37,8 @@ const LiveCodeblockCardAdmin = ({ codeblock, codeblockId }) => {
     socket.on("receive-changes", handler);
 
     return () => {
+      // removing the listener, leaving the room, and disconnecting the socket
+
       socket.off("receive-changes", handler);
       socket.emit("leave-room", codeblockId);
       socket.disconnect();
@@ -42,6 +46,8 @@ const LiveCodeblockCardAdmin = ({ codeblock, codeblockId }) => {
   }, [socket, codeblockId]);
 
   useEffect(() => {
+    // if the user close the window activ goBackHandler func
+
     window.addEventListener("beforeunload", goBackHandler);
 
     return () => {
@@ -51,6 +57,7 @@ const LiveCodeblockCardAdmin = ({ codeblock, codeblockId }) => {
 
   const goBackHandler = async () => {
     try {
+      // delete admin from the backend and clear localStorage
       await axios.delete("/api/admin/", { params: { adminId: adminId } });
       localStorage.clear();
     } catch (error) {

@@ -44,6 +44,7 @@ const LiveCodeblockCardStudent = ({ codeblock, codeblockId }) => {
     setLiveCode(newText);
     socket.emit("send-changes", { codeblockId, newText });
   };
+
   const handleCheckCode = async (e) => {
     e.preventDefault();
     try {

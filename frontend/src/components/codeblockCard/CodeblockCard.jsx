@@ -8,12 +8,16 @@ const CodeblockCard = ({ codeblock }) => {
   const navigate = useNavigate();
 
   const handleOpenCodeblock = async () => {
+    // Before opening the code block, saving the codeblock.id in the backend
     const saveFirst = await axios.post("/api/admin", { codeId: codeblock._id });
     if (saveFirst.data.isFirst) {
+      // After saving the data, save the data.id in localStorage
       localStorage.setItem("admin", JSON.stringify(saveFirst.data._id));
     }
+
     navigate(`/codeblock/${codeblock._id}`);
   };
+
   const deleteCodeblock = async () => {
     if (window.confirm(`Are you sure you want to delete ${codeblock.title}?`)) {
       try {

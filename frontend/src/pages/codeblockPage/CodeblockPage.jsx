@@ -10,7 +10,9 @@ const CodeblockPage = () => {
   const [isAdmin, setIsAdmin] = useState(
     JSON.parse(localStorage.getItem("admin")) || null
   );
+
   const { id: codeblockId } = useParams();
+
   useEffect(() => {
     const fetchCodeblock = async () => {
       const res = await axios.get(`/api/codeblock/?id=${codeblockId}`);
@@ -19,12 +21,12 @@ const CodeblockPage = () => {
     fetchCodeblock();
   }, []);
 
-  //
-  //
+  // Until the information goes up, user will see this
 
   if (!codeblock) {
     return <div>Loading...</div>;
   }
+  // if this is the first user open LiveCodeblockCardAdmin if not LiveCodeblockCardAdmin
 
   return (
     <div>

@@ -21,6 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/api/codeblock", require("./codeblock/codeblock.routes"));
 app.use("/api/admin", require("./admin/admin.routes"));
 
+// for deploy
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/build")));
 
@@ -37,24 +38,26 @@ const server = app.listen(port, () => {
   connect(process.env.MONGO_URL);
   console.log(`Server running on port ${port}`);
 });
-// connect socket
+
+// creates a new socket server
 const io = new Server(server, {
   cors: {
     methods: ["GET", "POST"],
   },
 });
 
+// sets up event listeners for the socket connection
 io.on("connection", (socket) => {
+  // joins a specified room
   socket.on("join-room", (codeblockId) => {
     socket.join(codeblockId);
   });
-
+  // send and receive changes
   socket.on("send-changes", ({ codeblockId, newText }) => {
     socket.to(codeblockId).emit("receive-changes", newText);
   });
 
   const count = io.engine.clientsCount;
-
   console.log(`Number of connected clients: ${count}`);
 
   socket.on("disconnect", () => {
