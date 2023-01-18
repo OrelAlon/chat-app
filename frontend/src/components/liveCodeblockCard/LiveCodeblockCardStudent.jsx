@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import io from "socket.io-client";
 import axios from "axios";
@@ -7,6 +8,8 @@ const LiveCodeblockCardStudent = ({ codeblock, codeblockId }) => {
   const [liveCode, setLiveCode] = useState(null);
   const [socket, setSocket] = useState(null);
   const [isCorrect, setIsCorrect] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const s = io.connect("http://localhost:5000/");
@@ -75,6 +78,8 @@ const LiveCodeblockCardStudent = ({ codeblock, codeblockId }) => {
         <br />
         <input type='submit' value='submit' />
       </form>
+      <button onClick={() => navigate("/")}>Go Back</button>
+
       <p>{isCorrect}</p>
     </div>
   );
