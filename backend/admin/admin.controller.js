@@ -22,9 +22,9 @@ const createAdmin = async (req, res) => {
 };
 
 const deleteAdmin = async (req, res) => {
-  const { codeId } = req.query;
+  const { adminId } = req.query;
   try {
-    await AdminUser.deleteOne({ codeId: codeId });
+    await AdminUser.findByIdAndDelete(adminId);
 
     res.json({ message: "First user deleted" });
   } catch (err) {

@@ -10,7 +10,7 @@ const CodeblockCard = ({ codeblock }) => {
   const handleClick = async () => {
     const saveFirst = await axios.post("/api/admin", { codeId: codeblock._id });
     if (saveFirst.data.isFirst) {
-      localStorage.setItem("admin", JSON.stringify(saveFirst.data.isFirst));
+      localStorage.setItem("admin", JSON.stringify(saveFirst.data._id));
     }
     navigate(`/codeblock/${codeblock._id}`);
   };

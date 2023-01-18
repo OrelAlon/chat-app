@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 
 import io from "socket.io-client";
 import axios from "axios";
-import useBeforeUnload from "../useBeforeUnload ";
 
 const LiveCodeblockCardAdmin = ({ codeblock, codeblockId }) => {
   const [liveCode, setLiveCode] = useState(null);
   const [socket, setSocket] = useState(null);
+  const [adminId, setAdminId] = useState(
+    JSON.parse(localStorage.getItem("admin")) || null
+  );
 
   const navigate = useNavigate();
 
@@ -39,19 +41,10 @@ const LiveCodeblockCardAdmin = ({ codeblock, codeblockId }) => {
     };
   }, [socket, codeblockId]);
 
-  useBeforeUnload(async () => {
-    // const deleteBtn = async () => {
-    try {
-      localStorage.clear();
-      await axios.delete("/api/admin/", { params: { codeId: codeblockId } });
-    } catch (error) {
-      console.error("Error deleting user", error);
-    }
-  });
   const goBackHandler = async () => {
     try {
+      await axios.delete("/api/admin/", { params: { adminId: adminId } });
       localStorage.clear();
-      await axios.delete("/api/admin/", { params: { codeId: codeblockId } });
     } catch (error) {
       console.error("Error deleting user", error);
     }

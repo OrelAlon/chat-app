@@ -1,10 +1,9 @@
 import { useEffect } from "react";
 
-const useBeforeUnload = (callback) => {
+const useDeleteOnUnmount = (callback) => {
   useEffect(() => {
-    window.addEventListener("beforeunload", callback);
-    return () => window.removeEventListener("beforeunload", callback);
+    return () => callback();
   }, [callback]);
 };
 
-export default useBeforeUnload;
+export default useDeleteOnUnmount;
