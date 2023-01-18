@@ -1,7 +1,7 @@
 ## online coding web application
 
 #### frontend
-pages:
+##### pages:
 1. Lobby page
 
 i. “Choose code block” headline
@@ -15,10 +15,13 @@ setMentor: (String) first user
 setStudent: (array) all user after the first one
 
 Code block page
+
 show 2 screen with if =>
+
 if (mentor) return “read only mode”
+
 if (student) return “ability to change the code” => Use highlight.js
-components:
+##### components:
 
 Bonus
 i. setSolution: (Array) if the code is equal to the solution show 🤩
