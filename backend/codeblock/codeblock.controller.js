@@ -15,10 +15,12 @@ const getCodeblocks = async (req, res) => {
 
 // create new code
 const createCodeblock = async (req, res) => {
+  const { title, code, solution } = req.body;
+
   const codeblock = await Codeblock.create({
-    title: req.body.title,
-    code: req.body.code,
-    solution: req.body.solution,
+    title: title,
+    code: code,
+    solution: solution,
   });
   res.status(200).json(codeblock);
 };
