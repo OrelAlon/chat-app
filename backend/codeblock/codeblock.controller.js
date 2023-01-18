@@ -18,6 +18,7 @@ const createCodeblock = async (req, res) => {
   const codeblock = await Codeblock.create({
     title: req.body.title,
     code: req.body.code,
+    solution: req.body.solution,
   });
   res.status(200).json(codeblock);
 };

@@ -9,6 +9,9 @@ const codeblockSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  solution: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("Codeblock", codeblockSchema);

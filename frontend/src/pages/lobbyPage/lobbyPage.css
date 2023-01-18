@@ -4,3 +4,9 @@
   display: grid;
   gap: 1rem;
 }
+.add-btn {
+  position: fixed;
+  right: 10px;
+  top: 10px;
+  z-index: 100;
+}
