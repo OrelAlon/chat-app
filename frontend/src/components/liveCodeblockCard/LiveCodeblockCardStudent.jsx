@@ -64,9 +64,7 @@ const LiveCodeblockCardStudent = ({ codeblock, codeblockId }) => {
   return (
     <div>
       <h3>Student Page</h3>
-
       <h4>{codeblock.title}</h4>
-
       <form onSubmit={handleCheckCode}>
         <textarea
           rows='15'
@@ -77,9 +75,8 @@ const LiveCodeblockCardStudent = ({ codeblock, codeblockId }) => {
         ></textarea>
         <br />
         <input type='submit' value='submit' />
-      </form>
+      </form>{" "}
       <button onClick={() => navigate("/")}>Go Back</button>
-
       <p>{isCorrect}</p>
     </div>
   );

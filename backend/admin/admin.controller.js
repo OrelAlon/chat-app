@@ -1,8 +1,12 @@
 const AdminUser = require("./admin.schema");
 
 const getAdmin = async (req, res) => {
-  const firstUser = await AdminUser.find();
-  res.status(200).json(firstUser);
+  try {
+    const firstUser = await AdminUser.find();
+    res.status(200).json(firstUser);
+  } catch (error) {
+    res.status(500).json({ message: "Error getting user", error: err });
+  }
 };
 
 const createAdmin = async (req, res) => {

@@ -2,34 +2,52 @@ const Codeblock = require("./codeblock.schema");
 
 // get one codeblock
 const getCodeblock = async (req, res) => {
-  const codeblockId = req.query.id;
-  const codeblock = await Codeblock.findById(codeblockId);
+  try {
+    const codeblockId = req.query.id;
+    const codeblock = await Codeblock.findById(codeblockId);
 
-  res.status(200).json(codeblock);
+    res.status(200).json(codeblock);
+  } catch (error) {
+    res.status(500).json({ message: "Error getting codeblock", error: err });
+  }
 };
+
 // get all codeblocks
 const getCodeblocks = async (req, res) => {
-  const codeblocks = await Codeblock.find();
-  res.status(200).json(codeblocks);
+  try {
+    const codeblocks = await Codeblock.find();
+    res.status(200).json(codeblocks);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error getting all codeblocks", error: err });
+  }
 };
 
 // create new code
 const createCodeblock = async (req, res) => {
   const { title, code, solution } = req.body;
-
-  const codeblock = await Codeblock.create({
-    title: title,
-    code: code,
-    solution: solution,
-  });
-  res.status(200).json(codeblock);
+  try {
+    const codeblock = await Codeblock.create({
+      title: title,
+      code: code,
+      solution: solution,
+    });
+    res.status(200).json(codeblock);
+  } catch (error) {
+    res.status(500).json({ message: "Error create new codeblock", error: err });
+  }
 };
 
-// delete new code
+// delete code
 const deleteCodeblock = async (req, res) => {
-  const codeblock = await Codeblock.findByIdAndDelete(req.params.id);
+  try {
+    const codeblock = await Codeblock.findByIdAndDelete(req.params.id);
 
-  res.status(200).json({ message: `delete ${req.params.id}` });
+    res.status(200).json({ message: `delete ${req.params.id}` });
+  } catch (error) {
+    res.status(500).json({ message: "Error delete codeblock", error: err });
+  }
 };
 
 module.exports = {
