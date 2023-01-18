@@ -4,7 +4,6 @@ const connect = require("./config/db");
 const cors = require("cors");
 const path = require("path");
 const port = process.env.PORT || 5000;
-const http = require("http");
 const { Server } = require("socket.io");
 
 const app = express();
@@ -18,6 +17,7 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// route endpoint
 app.use("/api/codeblock", require("./codeblock/codeblock.routes"));
 app.use("/api/admin", require("./admin/admin.routes"));
 
